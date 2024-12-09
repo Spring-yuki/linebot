@@ -44,6 +44,25 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
+    stickers = [
+        {"package_id": "6136", "sticker_id": "10551376"},
+        {"package_id": "6136", "sticker_id": "10551377"},
+        {"package_id": "6136", "sticker_id": "10551378"},
+        {"package_id": "6136", "sticker_id": "10551379"},
+        {"package_id": "6136", "sticker_id": "10551380"},
+    ]
+
+    if event.message.text:
+        # 隨機選擇一個貼圖
+        sticker = random.choice(stickers)
+        sticker_message = StickerSendMessage(
+            package_id=sticker["package_id"],
+            sticker_id=sticker["sticker_id"]
+        )
+        line_bot_api.reply_message(event.reply_token, sticker_message)
+    else:
+        reply_text = '很抱歉，我目前無法理解這個內容。'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(reply_text))
     if message == '天氣':
             reply_text = '請稍等，我幫您查詢天氣資訊！'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(reply_text))
