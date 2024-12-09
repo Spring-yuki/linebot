@@ -15,11 +15,11 @@ import random
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
-line_bot_api = LineBotApi('7EgMow7uxowokDODkkKPAlCpBTHDiEonMBF3aRWVvDyWUe327qvsC9wiIJQpV7+zcrhQ5yVDxNNLy9gdDjNbDD+ZKudiHBVn0GXJfe0ic8jkLKVxCFW2/RHPVIjhlBWaSckrCxYafTe0rnBzl1p0fQdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('1Lv9YGU+MIfp4gJW2+VoXeMSC0Mm2kpKEpCuHnaOTr+hRkQjoQaJ9Ny/96rOGfJQUhFojyRQRmcH6xqF/hdsqSxD+2ruvYHK4cmnqy/XAtXE5kGieEOjCmPhElWP2JX+wah4JDqHjPi8VcqhjcUHygdB04t89/1O/w1cDnyilFU=')
 # 必須放上自己的Channel Secret
-handler = WebhookHandler('4c3e800f2b2dd2c49b87326fc94a5357')
+handler = WebhookHandler('506a66aac492ad00be8255b1a78832cc')
 
-line_bot_api.push_message('Ud18701c20f39da291eeaba864d796ead', TextSendMessage(text='您好,目前時間是 2024/10/10 14:00 ，請問需要什麼服務呢?'))
+line_bot_api.push_message('U198bd80fbfca4c91633aaf2d8fc8f919', TextSendMessage(text='您好,目前時間是 2024/10/10 14:00 ，請問需要什麼服務呢?'))
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -44,25 +44,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    stickers = [
-        {"package_id": "11539", "sticker_id": "52114110"},
-        {"package_id": "11539", "sticker_id": "52114111"},
-        {"package_id": "11539", "sticker_id": "52114112"},
-        {"package_id": "11539", "sticker_id": "52114113"},
-        {"package_id": "11539", "sticker_id": "52114114"},
-    ]
-
-    if event.message.text:
-        # 隨機選擇一個貼圖
-        sticker = random.choice(stickers)
-        sticker_message = StickerSendMessage(
-            package_id=sticker["package_id"],
-            sticker_id=sticker["sticker_id"]
-        )
-        line_bot_api.reply_message(event.reply_token, sticker_message)
-    else:
-        reply_text = '很抱歉，我目前無法理解這個內容。'
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(reply_text))
     if message == '天氣':
             reply_text = '請稍等，我幫您查詢天氣資訊！'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(reply_text))
@@ -70,14 +51,14 @@ def handle_message(event):
     elif message == '心情好':
             sticker_message = StickerSendMessage(
             package_id='446',
-            sticker_id='1991'  # 開心的貼圖
+            sticker_id='1993'  # 開心的貼圖
         )
             line_bot_api.reply_message(event.reply_token, sticker_message)
 
     elif message == '心情不好':
             sticker_message = StickerSendMessage(
-            package_id='11539',
-            sticker_id='52114138'  # 傷心的貼圖
+            package_id='446',
+            sticker_id='2006'  # 傷心的貼圖
         )
             line_bot_api.reply_message(event.reply_token, sticker_message)
 
@@ -85,8 +66,8 @@ def handle_message(event):
             location_message = LocationSendMessage(
             title='著名餐廳',
             address='Hog Island Oyster Co.',
-            latitude=37.79726181895184,
-            longitude=-122.39362601431256
+            latitude=24.222173760252893,
+            longitude= 120.57809735647335
         )
             line_bot_api.reply_message(event.reply_token, location_message)
 
@@ -94,29 +75,29 @@ def handle_message(event):
             location_message = LocationSendMessage(
             title='熱門景點',
             address='Skarðsáfossur',
-            latitude=62.09834026797917,
-            longitude=-7.406501774391917
+            latitude=24.22738843546918,
+            longitude= 120.58362305469898
         )
             line_bot_api.reply_message(event.reply_token, location_message)
 
     elif message == '熱門音樂':
             audio_message = AudioSendMessage(
-            original_content_url='https://youtu.be/sJ-2X3rHtXw?si=Ow7QJEA94g_oSzjo',  # 替換為實際的音樂檔案網址
+            original_content_url='hhttps://youtu.be/OIBODIPC_8Y?si=RBSY2FvE1GqPiFzj',  # 替換為實際的音樂檔案網址
             duration=240000  # 音樂長度（毫秒）
         )
             line_bot_api.reply_message(event.reply_token, audio_message)
 
     elif message == '放鬆音樂':
             audio_message = AudioSendMessage(
-            original_content_url='https://youtu.be/b5d5OmmUlPc?si=KjqoCFqC-zMPUbBU',  # 替換為實際的音樂檔案網址
+            original_content_url='https://youtu.be/DtBoAqkIJzI?si=lkRIr501M7irKNbs',  # 替換為實際的音樂檔案網址
             duration=300000  # 音樂長度（毫秒）
         )
             line_bot_api.reply_message(event.reply_token, audio_message)
 
     elif message == '今天是我的生日':
             image_message = ImageSendMessage(
-            original_content_url='https://instagram.frmq1-1.fna.fbcdn.net/v/t51.29350-15/445982392_1168493424581932_2823979820016375869_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi44MDB4NTk5LnNkci5mMjkzNTAuZGVmYXVsdF9pbWFnZSJ9&_nc_ht=instagram.frmq1-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=sB_C31Fv8iEQ7kNvgHhyc2m&_nc_gid=e634efac047d43908457cd99e591ae05&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzM3MzY4MDM2NzUyMDk1MzkwMw%3D%3D.3-ccb7-5&oh=00_AYBT_hpWmBXVyHjuu3wIyJ9sU2H78qC0k1msekBCMXYG0w&oe=675A9D7C&_nc_sid=10d13b',  # 替換為實際的圖片網址
-            preview_image_url='https://instagram.frmq1-1.fna.fbcdn.net/v/t51.29350-15/445982392_1168493424581932_2823979820016375869_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi44MDB4NTk5LnNkci5mMjkzNTAuZGVmYXVsdF9pbWFnZSJ9&_nc_ht=instagram.frmq1-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=sB_C31Fv8iEQ7kNvgHhyc2m&_nc_gid=e634efac047d43908457cd99e591ae05&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzM3MzY4MDM2NzUyMDk1MzkwMw%3D%3D.3-ccb7-5&oh=00_AYBT_hpWmBXVyHjuu3wIyJ9sU2H78qC0k1msekBCMXYG0w&oe=675A9D7C&_nc_sid=10d13b'  # 替換為實際的預覽圖片網址
+            original_content_url='https://media.istockphoto.com/id/1136810581/zh/%E7%85%A7%E7%89%87/%E7%94%A8%E4%BA%94%E9%A1%8F%E5%85%AD%E8%89%B2%E7%9A%84%E7%81%91%E6%B0%B4%E5%92%8C%E5%8D%81%E6%94%AF%E8%A0%9F%E7%87%AD%E8%A3%9D%E9%A3%BE%E7%9A%84%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95.jpg?s=1024x1024&w=is&k=20&c=od9sL0ND3HdifCJa5wWabXQE3e9dM641kUC9YKrar4k=',  # 替換為實際的圖片網址
+            preview_image_url='https://media.istockphoto.com/id/1136810581/zh/%E7%85%A7%E7%89%87/%E7%94%A8%E4%BA%94%E9%A1%8F%E5%85%AD%E8%89%B2%E7%9A%84%E7%81%91%E6%B0%B4%E5%92%8C%E5%8D%81%E6%94%AF%E8%A0%9F%E7%87%AD%E8%A3%9D%E9%A3%BE%E7%9A%84%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95.jpg?s=1024x1024&w=is&k=20&c=od9sL0ND3HdifCJa5wWabXQE3e9dM641kUC9YKrar4k='  # 替換為實際的預覽圖片網址
         )
             text_message = TextSendMessage(text='生日快樂！')
             line_bot_api.reply_message(event.reply_token, [image_message, text_message])
@@ -124,9 +105,9 @@ def handle_message(event):
     elif message in ['動作片', '動畫', '紀錄片']:
         # 根據類型傳送影片
         video_urls = {
-            '動作片': 'https://youtu.be/6PP7QzMowp4?si=JsEKHmvDJugizqzH',
-            '動畫': 'https://youtu.be/tfHhtCSGzn0?si=vjxdRSGM8ewilx0_',
-            '紀錄片': 'https://youtu.be/vmnuj5SoG-o?si=9uGkb1E_ZPb0Fxre'
+            '動作片': 'https://youtu.be/JeZwLiw_aE0?si=RkoVZZysESKCLp3O',
+            '動畫': 'https://youtu.be/3OYgu5D2cxU?si=lQVmfgqUlhTp9zwQ',
+            '紀錄片': 'https://youtu.be/u-puPhw2qj8?si=-bPFtmcALNZFmdy5'
         }
         video_url = video_urls.get(message)
         if video_url:
