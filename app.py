@@ -82,7 +82,7 @@ def handle_message(event):
 
     elif message == '熱門音樂':
             audio_message = AudioSendMessage(
-            original_content_url='hhttps://youtu.be/OIBODIPC_8Y?si=RBSY2FvE1GqPiFzj',  # 替換為實際的音樂檔案網址
+            original_content_url='https://youtu.be/OIBODIPC_8Y?si=RBSY2FvE1GqPiFzj',  # 替換為實際的音樂檔案網址
             duration=240000  # 音樂長度（毫秒）
         )
             line_bot_api.reply_message(event.reply_token, audio_message)
